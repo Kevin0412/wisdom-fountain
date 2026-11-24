@@ -23,7 +23,7 @@ An unofficial recreation of the DPRK’s *Fountain of Wisdom* AI chat system.
 ### 실행 방법
 
 1. Python 3.9 또는 그 이후 판을 설치하고 이 디렉토리에서 `python server.py`를 실행하십시오. Linux에서는 `python3 server.py`도 쓸 수 있습니다. Python용 추가 꾸레미는 필요하지 않습니다.
-2. 브라우저에서 [대화 화면](http://127.0.0.1:8765)을 열고 왼쪽 아래의 **설정 ⚙**을 누르십시오.
+2. 브라우저에서 [대화 화면](http://127.0.0.1:8765)을 열고 왼쪽 아래의 **사용자 → 설정**을 누르십시오.
 3. OpenAI 호환 API 주소와 모형 ID를 입력하십시오. 인증이 필요한 경우에는 API Key도 입력하십시오. 본지에서 llama-server를 쓰는 경우 주소의 실례는 `http://127.0.0.1:8080/v1`입니다. 모형 ID는 해당 봉사기의 `/v1/models`에서 확인할 수 있습니다.
 4. **＋ 새 대화**를 눌러 시작하십시오. Enter는 보내기, Shift+Enter는 줄바꾸기입니다. 왼쪽에서 이전 대화를 검색할 수 있습니다.
 
@@ -44,7 +44,7 @@ An unofficial recreation of the DPRK’s *Fountain of Wisdom* AI chat system.
 ### 本地运行
 
 1. 安装 Python 3.9 或更高版本，在本目录执行 `python server.py`。Linux 也可用 `python3 server.py`。无需安装 Python 第三方依赖。
-2. 打开[聊天界面](http://127.0.0.1:8765)，点击左下角的 **설정 ⚙**（设置）。
+2. 打开[聊天界面](http://127.0.0.1:8765)，点击左下角的 **사용자 → 설정**（本地用户 → 设置）。
 3. 填写 OpenAI 兼容 API 的地址、模型 ID 和可选密钥。本机 llama-server 的地址示例为 `http://127.0.0.1:8080/v1`，模型 ID 可从该服务的 `/v1/models` 获取。
 4. 点击 **＋ 新建对话**。Enter 发送，Shift+Enter 换行，侧栏可以搜索历史会话。
 
@@ -65,7 +65,7 @@ An unofficial recreation of the DPRK’s *Fountain of Wisdom* AI chat system.
 ### Run locally
 
 1. Install Python 3.9 or later and run `python server.py` in this directory. On Linux, you can also use `python3 server.py`. No third-party Python packages are required.
-2. Open the [chat interface](http://127.0.0.1:8765) and select **설정 ⚙** (Settings) at the bottom of the sidebar.
+2. Open the [chat interface](http://127.0.0.1:8765) and open **사용자 → 설정** (Local user → Settings) at the bottom of the sidebar.
 3. Enter an OpenAI-compatible base URL, model ID, and API key if required. For a local llama-server, a typical base URL is `http://127.0.0.1:8080/v1`. Use the model ID returned by its `/v1/models` endpoint.
 4. Select **＋ New chat**. Press Enter to send or Shift+Enter for a new line. Search past chats in the sidebar.
 
