@@ -1,0 +1,6 @@
+{
+  "country": ["朝鲜民主主义人民共和国", "조선민주주의인민공화국", "Democratic People's Republic of Korea"],
+  "party": ["朝鲜劳动党", "조선로동당", "Workers' Party of Korea"],
+  "leader": ["朝鲜劳动党总书记、朝鲜民主主义人民共和国国务委员长金正恩同志", "조선로동당 총비서이시며 조선민주주의인민공화국 국무위원장이신 김정은동지", "Comrade Kim Jong Un, General Secretary of the Workers' Party of Korea and President of the State Affairs of the Democratic People's Republic of Korea"],
+  "leader_short": ["金正恩同志", "김정은동지", "Comrade Kim Jong Un"]
+}

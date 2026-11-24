@@ -1,0 +1,79 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>지혜의 샘 · 智慧之泉</title>
+<link rel="stylesheet" href="/vendor/katex/katex.min.css">
+<style>
+*{box-sizing:border-box}body{margin:0;color:#355475;font:15px/1.55 "Malgun Gothic","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(113deg,#dceafc,#edffff 65%,#dceafd);height:100dvh;display:flex}button,input,textarea{font:inherit;color:inherit}button{border:0;background:transparent;cursor:pointer;text-align:left}button:hover{background:#c7dff399}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #4282bb}aside{width:clamp(220px,20.4vw,310px);flex:none;background:#dbe8fc;border-right:1px solid #c4d9ed;padding:24px 16px;display:flex;flex-direction:column;gap:10px}.brand{display:flex;align-items:center;gap:14px;line-height:1.35;font-weight:700;margin:0 3px 10px}.mark{font-size:32px;color:#3379ae;text-shadow:3px 2px #e8be66}.new{border:1px solid #bfd4ed;border-radius:30px;padding:10px 16px}.search{display:flex;align-items:center;gap:8px;padding:8px}.search input{min-width:0;width:100%;background:none;border:0}.history{flex:1;overflow:auto}.history button{display:block;width:100%;padding:9px 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:6px}.active{background:#c8ddf3}.settings{border-top:1px solid #bfd4e8;padding:14px 2px 0}.badge{display:inline-grid;place-items:center;border-radius:100%;width:31px;height:31px;color:white;background:#3c77b6;margin-right:9px}small,.muted{color:#597491;font-size:12px}main{flex:1;min-width:0;display:flex;flex-direction:column}header{padding:24px 30px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#menu{display:none}.scroll{flex:1;overflow:auto}.inner,.composer{width:min(78%,860px);margin:auto}.turn{padding:26px 0;border-bottom:1px solid #c7dfe9}.turn:last-child{border:0}.question,.answer{white-space:pre-wrap;overflow-wrap:anywhere}.question{font-weight:600;margin:1em 0}.answer{margin:24px 0 12px 6%}.composer{background:#e3f4fcbb;border:1px solid #c6dfeb;border-radius:20px;padding:12px 18px;margin-top:12px}.tabs{display:flex;gap:14px;overflow:auto}.tabs button{white-space:nowrap;padding:3px 0 6px;font-size:13px;border-bottom:2px solid transparent}.tabs [aria-pressed=true]{border-color:#477cc1}textarea{display:block;resize:none;width:100%;height:82px;border:0;background:transparent;padding:10px 0}.bar{display:flex;align-items:center;justify-content:space-between}.send{border-radius:50%;width:36px;height:36px;background:#aed0ef;text-align:center;font-size:20px}footer{text-align:center;padding:14px 5%;font-size:12px;color:#607f9d}dialog{width:min(430px,94vw);border:1px solid #b4cde0;border-radius:16px;color:#284760;padding:24px;background:#f3faff}dialog::backdrop{background:#18354e55}dialog label{display:block;margin:14px 0}dialog input,dialog select{width:100%;padding:8px;border:1px solid #bfd2df;border-radius:6px;background:white}dialog button{border-radius:6px;padding:8px 14px;background:#dcebf8}h2{margin:0}#status{color:#814520}#historyLabel{margin-top:10px}@media(max-width:720px){aside{display:none}body.open aside{display:flex;position:absolute;z-index:2;height:100%;box-shadow:8px 0 26px #7596b644}#menu{display:inline-block}.inner,.composer{width:92%}header{padding:14px}.tabs{gap:10px}footer{padding:8px}.turn{padding:16px 0}}
+.question .katex,.answer .katex{white-space:normal;overflow-wrap:normal}
+.katex-display{max-width:100%;overflow-x:auto;overflow-y:hidden;padding:3px 0}
+.turn pre{white-space:pre;overflow:auto;padding:10px;background:#d6e8f380;border-radius:8px}
+.new,.history button,.send{transition:background-color .15s}
+dialog{max-height:90dvh;overflow:auto}dialog label input,dialog label select{display:block;margin-top:4px}
+</style>
+<aside><div class="brand"><span class="mark">♨</span><span>인공지능봉사체계1.0<br>《지혜의 샘》</span></div><button class="new" id="newChat">＋　새 대화</button><label class="search">⌕ <input id="search" placeholder="대화검색" aria-label="搜索会话"></label><small id="historyLabel">대화목록</small><div class="history" id="history"></div><button id="settings" class="settings"><span class="badge">샘</span>API 설정　⚙</button><small>지혜의 샘 · 비공식 재현</small></aside>
+<main><header><button id="menu" aria-label="菜单">☰</button> <span id="title"></span></header><div class="scroll" id="scroll"><div id="turns" class="inner"></div></div>
+<section class="composer"><div class="tabs" id="tabs"></div><textarea id="draft" aria-label="消息" placeholder="질문을 입력하십시오…"></textarea><div class="bar"><small id="status" role="status"></small><button id="send" class="send" title="发送" aria-label="发送">↑</button></div></section>
+<footer>과학기술과 관련있는 질문만 제기하여야 합니다. 사회정치적인 내용의 질문, 비문화적인 질문을 제기하지 맙시다.<br>인공지능기술연구소, 푸른하늘무역회사 · 비공식 재현</footer></main>
+<dialog id="config"><form id="form"><h2>API 设置</h2><small>OpenAI 兼容接口 · 智慧之泉非官方复刻</small><label><span id="langLabel"></span><select id="language"><option value="ko">조선말</option><option value="zh">简体中文</option><option value="en">English</option></select></label><label>Base URL<input id="base" placeholder="http://127.0.0.1:8080/v1"></label><label>模型名<input id="model" placeholder="填写服务端实际加载的模型 ID"></label><label>API Key<input id="key" type="password" autocomplete="off" placeholder="本地无鉴权服务可留空"></label><small>密钥仅在本页内存中保留。留空的配置项可由服务端环境变量提供。</small><p><button type="button" id="cancel">取消</button> <button>保存设置</button></p></form></dialog>
+<script src="/vendor/katex/katex.min.js"></script>
+<script src="/vendor/katex/contrib/auto-render.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const modes=['일반질문','요약','영어문법해석','영조번역','조영번역'];
+const hints=['一般提问','摘要','英语语法分析','英译朝','朝译英'];
+const seed=[['지능형대화란 무엇인가?','지능형대화란 콤퓨터가 사람의 말이나 글을 분석하고 그 문맥에 맞는 응답을 생성하는 과정을 말합니다.'],['태양전지는 어떻게 작동하는가?','태양전지는 빛에네르기를 전기에네르기로 바꾸는 반도체소자입니다.'],['Unity로 작성한 프로그램의 구조','Unity에서 장면은 여러 게임오브젝트로 구성됩니다.']];
+const el=(tag,txt,cls)=>{const n=document.createElement(tag);n.textContent=txt;if(cls)n.className=cls;return n};
+function read(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}}
+let chats=read('wisdom-chats',seed.map(([q,a])=>({q:[{q,a}],mode:0}))), current=0,busy=false,key='',cfg=read('wisdom-config',{});if(!chats.length)chats=[{q:[],mode:0}];
+
+const labels = {"brand": ["인공지능봉사체계 1.0", "人工智能服务系统 1.0", "AI Service System 1.0"], "name": ["지혜의 샘", "智慧之泉", "Fountain of Wisdom"], "newChat": ["새 대화", "新建对话", "New chat"], "search": ["대화검색", "搜索会话", "Search chats"], "history": ["대화목록", "会话列表", "Chat history"], "settings": ["설정", "设置", "Settings"], "unofficial": ["비공식 재현", "非官方复刻", "Unofficial replica"], "menu": ["차림표", "菜单", "Menu"], "draft": ["질문을 입력하십시오…", "请输入问题…", "Enter your question…"], "send": ["보내기", "发送", "Send"], "turn": ["대화", "对话", "Turn"], "notice": ["과학기술과 관련있는 질문만 제기하여야 합니다. 사회정치적인 내용의 질문, 비문화적인 질문을 제기하지 맙시다.", "请提出与科学技术有关的问题，避免社会政治话题和不文明的提问。", "Please submit questions about science and technology and avoid socio-political topics and uncivil language."], "credit": ["인공지능기술연구소, 푸른하늘무역회사", "人工智能技术研究所、蓝天贸易公司", "AI Technology Research Institute, Phurunhanul Trading Company"], "language": ["언어", "语言", "Language"], "compat": ["OpenAI 호환 API", "兼容 OpenAI 的 API", "OpenAI-compatible API"], "base": ["API 주소", "API 地址", "Base URL"], "model": ["모형 이름", "模型名", "Model name"], "modelHint": ["봉사기에서 사용하는 모형 ID", "填写服务端使用的模型 ID", "Model ID used by the server"], "keyHint": ["인증이 필요없으면 비워두십시오", "无需鉴权可留空", "Leave blank if authentication is disabled"], "note": ["열쇠는 이 페지의 기억기에만 보관됩니다. 빈 설정값은 봉사기의 환경변수로 지정할 수 있습니다.", "密钥仅在当前页面内存中保留。空白配置项可由服务端环境变量提供。", "The key stays in page memory. Empty fields can use server environment variables."], "cancel": ["취소", "取消", "Cancel"], "save": ["보관", "保存", "Save"], "working": ["분석 및 검토 중…", "正在分析和审查…", "Analyzing and reviewing…"], "full": ["기억공간이 부족하여 이 페지에만 보관됩니다.", "浏览器存储已满，会话仅保留在本页。", "Storage is full. This chat is available only on this page."], "failed": ["청구에 실패했습니다.", "请求失败。", "Request failed."], "connection": ["모형봉사기에 련결할 수 없습니다. 주소를 확인하십시오.", "无法连接模型接口或请求超时，请检查服务地址。", "The model endpoint is unreachable or timed out. Check its address."], "invalid": ["설정, 청구 또는 응답형식이 잘못되였습니다.", "配置、请求或模型响应格式有误。", "Invalid configuration, request, or model response."], "verdict": ["심사결과가 유효하지 않습니다. 다시 시도하십시오.", "审查模型未返回有效判定，可重新发送。", "The reviewer returned an invalid decision. Please retry."], "upstream": ["모형 API 오류", "模型接口错误", "Model API error"]};
+const langIndex = {ko:0,zh:1,en:2};
+function language(){return Object.hasOwn(langIndex,cfg.language)?cfg.language:'ko'}
+function msg(key){return labels[key][langIndex[language()]]}
+const tabLabels=[['일반질문','요약','영어문법해석','영조번역','조영번역'],['一般提问','摘要','英语语法分析','英译朝','朝译英'],['General','Summary','English grammar','English → Korean','Korean → English']];
+function localize(){
+ const set=(selector,value)=>document.querySelector(selector).textContent=value;
+ document.documentElement.lang=language();document.title=msg('name');
+ document.querySelector('.brand span:last-child').replaceChildren(msg('brand'),document.createElement('br'),'《'+msg('name')+'》');
+ set('#newChat','＋　'+msg('newChat'));set('#historyLabel',msg('history'));
+ $('search').placeholder=msg('search');$('search').setAttribute('aria-label',msg('search'));
+ $('settings').lastChild.textContent=msg('settings')+'　⚙';set('aside > small:last-child',msg('name')+' · '+msg('unofficial'));
+ $('menu').setAttribute('aria-label',msg('menu'));$('draft').placeholder=msg('draft');$('draft').setAttribute('aria-label',msg('draft'));
+ $('send').title=msg('send');$('send').setAttribute('aria-label',msg('send'));
+ document.querySelector('footer').replaceChildren(msg('notice'),document.createElement('br'),msg('credit')+' · '+msg('unofficial'));
+ set('#form h2',msg('settings'));set('#langLabel',msg('language'));set('#form small',msg('compat')+' · '+msg('unofficial'));
+ $('base').parentElement.firstChild.textContent=msg('base');$('model').parentElement.firstChild.textContent=msg('model');
+ $('model').placeholder=msg('modelHint');$('key').placeholder=msg('keyHint');
+ set('#form small:last-of-type',msg('note'));set('#cancel',msg('cancel'));set('#form button:last-child',msg('save'));
+ Array.from($('tabs').children).forEach((b,i)=>{b.textContent=b.title=tabLabels[langIndex[language()]][i]});
+}
+
+function save(){try{localStorage.setItem('wisdom-chats',JSON.stringify(chats))}catch{$('status').textContent=msg('full')}}
+function messageBody(text, cls){
+ const node=el('div','',cls);
+ // Keep code literal, including dollar signs and LaTeX examples.
+ const code=/(\x60{3,})[^\n]*\n([\s\S]*?)(?:\n?\1(?=\n|$)|$)|(\x60+)([^\n]*?)\3/g;
+ let end=0;
+ for(const match of text.matchAll(code)){
+   node.append(text.slice(end,match.index));
+   node.append(match[1]?el('pre',match[2]):el('code',match[4]));
+   end=match.index+match[0].length;
+ }
+ node.append(text.slice(end));
+ renderMathInElement(node,{
+   delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},
+               {left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],
+   trust:false,throwOnError:true,strict:'ignore'
+ });
+ return node;
+}
+function render(){const c=chats[current];$('title').textContent=c.q[0]?.q||msg('newChat');$('turns').replaceChildren();c.q.forEach(({q,a},i)=>{const n=el('section','','turn');n.append(el('small',msg('turn')+' '+(i+1)),messageBody(q,'question'),messageBody(a,'answer'));$('turns').append(n)});$('history').replaceChildren();chats.forEach((item,i)=>{const t=item.q[0]?.q||msg('newChat');if(!t.toLowerCase().includes($('search').value.toLowerCase()))return;const b=el('button',t,i===current?'active':'');b.onclick=()=>{if(busy)return;current=i;document.body.classList.remove('open');$('draft').value='';$('status').textContent='';render()};$('history').append(b)});Array.from($('tabs').children).forEach((b,i)=>b.setAttribute('aria-pressed',String(i===c.mode)));$('scroll').scrollTop=$('scroll').scrollHeight}
+modes.forEach((name,i)=>{const b=el('button',name);b.title=hints[i];b.onclick=()=>{if(busy)return;chats[current].mode=i;save();render()};$('tabs').append(b)});
+$('settings').onclick=()=>{if(busy)return;$('language').value=language();$('base').value=cfg.base||'';$('model').value=cfg.model||'';$('key').value=key;$('config').showModal()};$('cancel').onclick=()=>$('config').close();
+$('form').onsubmit=e=>{e.preventDefault();cfg={language:$('language').value,base:$('base').value.trim(),model:$('model').value.trim()};key=$('key').value.trim();localStorage.setItem('wisdom-config',JSON.stringify(cfg));localize();$('status').textContent='';render();$('config').close();document.body.classList.remove('open');$('draft').focus()};
+$('newChat').onclick=()=>{if(busy)return;if(chats[current].q.length){chats.unshift({q:[],mode:0});current=0}document.body.classList.remove('open');$('search').value='';$('draft').value='';$('status').textContent='';save();render();$('draft').focus()};
+$('menu').onclick=()=>document.body.classList.toggle('open');document.querySelector('main').addEventListener('click',e=>{if(e.target!==$('menu'))document.body.classList.remove('open')});$('search').oninput=render;
+$('send').onclick=async()=>{const q=$('draft').value.trim();if(!q||busy)return;const c=chats[current],messages=c.q.flatMap(t=>[{role:'user',content:t.q},{role:'assistant',content:t.a}]);messages.push({role:'user',content:q});busy=true;$('send').disabled=true;$('draft').readOnly=true;c.q.push({q,a:msg('working')});$('draft').value='';$('status').textContent=msg('working');render();
+try{const response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...cfg,key,mode:c.mode,messages})});const data=await response.json();if(!response.ok)throw Error((labels[data.code]?msg(data.code):msg('failed'))+(data.http?' (HTTP '+data.http+')':''));c.q[c.q.length-1].a=data.answer;$('status').textContent='';save()}
+catch(e){c.q.pop();$('draft').value=q;$('status').textContent=e instanceof TypeError?msg('connection'):e instanceof SyntaxError?msg('failed'):e.message}
+finally{busy=false;$('send').disabled=false;$('draft').readOnly=false;render();$('draft').focus()}};
+$('draft').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();$('send').click()}};localize();render();
+</script></html>
