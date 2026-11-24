@@ -8,7 +8,7 @@ An unofficial recreation of the DPRK’s *Fountain of Wisdom* AI chat system.
 
 **재현판 · 复刻版 · Recreation**
 
-![재현판의 조선말 화면 · 复刻版朝鲜语界面 · The recreation with its default Korean interface](docs/interface-ko.webp)
+![재현판의 조선말 화면 · 复刻版朝鲜语界面 · The recreation with its default Korean interface](docs/interface-ko-generated.webp)
 
 **룡남산텔레비죤 방영 화면 · 龙南山电视台演示画面 · Original TV demonstration**
 

@@ -58,14 +58,14 @@ jobs:
               page.locator('#scroll').evaluate('(el) => { el.scrollTop = 0; }')
               assert not errors, errors
               png = page.screenshot(animations='disabled')
-              Image.open(io.BytesIO(png)).convert('RGB').save('docs/interface-ko.webp', quality=90, method=6)
+              Image.open(io.BytesIO(png)).convert('RGB').save('docs/interface-ko-generated.webp', quality=90, method=6)
               browser.close()
           PY
       - name: Commit refreshed screenshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/interface-ko.webp
+          git add docs/interface-ko-generated.webp
           if ! git diff --cached --quiet; then
             git commit -m "Refresh Korean interface screenshot"
             git push
