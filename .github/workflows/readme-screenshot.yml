@@ -49,7 +49,13 @@ jobs:
               page.locator('.answer').first.wait_for(state='visible')
               page.evaluate('document.fonts.ready')
               assert page.locator('#history button').count() == 3
-              assert page.locator('.turn.single-short').count() == 1
+              assert page.locator('.turn .question').count() == 1
+              question = page.locator('.question').first
+              answer = page.locator('.answer').first
+              assert question.is_visible() and answer.is_visible()
+              assert question.bounding_box()['x'] > answer.bounding_box()['x']
+              # Show the beginning of the conversation in the README demo.
+              page.locator('#scroll').evaluate('(el) => { el.scrollTop = 0; }')
               assert not errors, errors
               png = page.screenshot(animations='disabled')
               Image.open(io.BytesIO(png)).convert('RGB').save('docs/interface-ko.webp', quality=90, method=6)

@@ -37,12 +37,9 @@ main{min-height:0}
 .history button{padding-block:7px}
 .history h3{margin-top:19px}
 .history .active{background:#c8dbef99}
-.turn{padding:12px 0 16px}
-.turn>small{display:block;margin-bottom:6px}
-.turn .question{margin:8px 0 14px}
-.turn .answer{margin:12px 0 12px 3%;line-height:1.65}
-.turn.single-short>small,.turn.single-short>.question{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-.turn.single-short .answer{margin-top:0}
+.turn{padding:12px 0 16px;border-bottom:0;display:flex;flex-direction:column;align-items:stretch}
+.turn .question{align-self:flex-end;width:fit-content;max-width:78%;min-width:0;margin:0 0 20px;padding:9px 14px;background:#cbdff2b3;border-radius:12px;font-weight:400;line-height:1.55}
+.turn .answer{margin:0 0 12px 3%;line-height:1.65}
 .composer{padding-bottom:9px}
 textarea{height:64px}
 #notice{margin:8px auto 15px}
@@ -189,7 +186,7 @@ function refreshAtMidnight(){
  setTimeout(()=>{renderHistory();refreshAtMidnight()},next-now);
 }
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)renderHistory()});
-function render(){const c=chats[current];$('title').textContent=c.q[0]?.q||msg('newChat');$('title').title=$('title').textContent;$('turns').replaceChildren();c.q.forEach(({q,a},i)=>{const n=el('section','','turn');if(c.q.length===1&&q.length<=100&&!q.includes('\n'))n.classList.add('single-short');n.append(el('small',msg('turn')+' '+(i+1)),messageBody(q,'question'),messageBody(a,'answer'));$('turns').append(n)});renderHistory();Array.from($('tabs').children).forEach((b,i)=>b.setAttribute('aria-pressed',String(i===c.mode)));$('scroll').scrollTop=$('scroll').scrollHeight}
+function render(){const c=chats[current];$('title').textContent=c.q[0]?.q||msg('newChat');$('title').title=$('title').textContent;$('turns').replaceChildren();c.q.forEach(({q,a})=>{const n=el('section','','turn');n.append(messageBody(q,'question'),messageBody(a,'answer'));$('turns').append(n)});renderHistory();Array.from($('tabs').children).forEach((b,i)=>b.setAttribute('aria-pressed',String(i===c.mode)));$('scroll').scrollTop=$('scroll').scrollHeight}
 modes.forEach((name,i)=>{const b=el('button',name);b.title=hints[i];b.onclick=()=>{if(busy)return;chats[current].mode=i;save();render()};$('tabs').append(b)});
 $('settings').onclick=()=>{if(busy)return;$('language').value=language();$('base').value=cfg.base||'';$('model').value=cfg.model||'';$('key').value=key;$('config').showModal()};$('cancel').onclick=()=>$('config').close();
 $('form').onsubmit=e=>{e.preventDefault();cfg={language:$('language').value,base:$('base').value.trim(),model:$('model').value.trim()};key=$('key').value.trim();localStorage.setItem('wisdom-config',JSON.stringify(cfg));localize();$('status').textContent='';render();$('config').close();document.body.classList.remove('open');$('draft').focus()};
