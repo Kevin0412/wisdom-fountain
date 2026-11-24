@@ -132,5 +132,5 @@ class Handler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv)>1 else 8765
     server = ThreadingHTTPServer(("127.0.0.1",port),Handler)
-    print(f"智慧之泉 · http://127.0.0.1:{port}", flush=True)
+    print(f"智慧之泉 · http://127.0.0.1:{server.server_port}", flush=True)
     server.serve_forever()

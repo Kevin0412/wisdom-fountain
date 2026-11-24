@@ -48,6 +48,19 @@ An unofficial recreation of the DPRK’s *Fountain of Wisdom* AI chat system.
 3. 填写 OpenAI 兼容 API 的地址、模型 ID 和可选密钥。本机 llama-server 的地址示例为 `http://127.0.0.1:8080/v1`，模型 ID 可从该服务的 `/v1/models` 获取。
 4. 点击 **＋ 新建对话**。Enter 发送，Shift+Enter 换行，侧栏可以搜索历史会话。
 
+### DeepSeek Harness 网页插件
+
+需要本机运行 DSH、pnpm 和 Python。在仓库目录里执行以下命令。此前装过 ZIP 版的用户也可以用同一命令，将 web 配置中的插件指向当前仓库。
+
+```sh
+dsh plugin --profile web add .
+dsh --profile web
+```
+
+重新启动已有的 DSH 进程并刷新浏览器。在对话框输入 `/juche ui`，按 Enter 后当前标签页会切换到本机的《智慧之泉》，浏览器后退可返回 DSH。页面使用本仓库的 HTML、模型设置和聊天历史。DSH 会话里也可用 `/juche` 启用拟写口吻、用 `/juche off` 关闭。
+
+界面默认占用本机 8765 端口。如已用独立网页版占用该端口，可先关闭它，或在启动 DSH 前设置 `WISDOM_PORT`。可用 `WISDOM_PYTHON` 指定 Python 可执行文件。浏览器和 DSH 服务需在同一台机器上。
+
 ### 语言与回答审查
 
 首次打开默认为朝鲜语。可在 **设置 → 语言** 选择朝鲜语、简体中文或英语。界面、新回复和审查提示跟随所选语言，已有消息保留原文。英译朝和朝译英按各自的目标语言输出。初始三段对话是演示样例。
